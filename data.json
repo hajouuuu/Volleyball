@@ -17,13 +17,13 @@
       "teamA": "Team A",
       "teamB": "Team B",
       "scoreA": 2,
-      "scoreB": 0
+      "scoreB": 1
     },
     {
       "matchday": 1,
       "teamA": "Team C",
       "teamB": "Team D",
-      "scoreA": 1,
+      "scoreA": 0,
       "scoreB": 2
     },
     {
@@ -31,7 +31,7 @@
       "teamA": "Team A",
       "teamB": "Team C",
       "scoreA": 2,
-      "scoreB": 1
+      "scoreB": 0
     }
   ]
 }
