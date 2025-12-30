@@ -1,6 +1,6 @@
 :root {
-  --primary: #1e3a8a;     /* Blau */
-  --secondary: #f97316;   /* Orange */
+  --primary: #1e3a8a;     
+  --secondary: #f97316;   
   --bg: #f8fafc;
   --card: #ffffff;
   --border: #e5e7eb;
@@ -17,21 +17,6 @@ h1 {
   text-align: center;
   color: var(--primary);
   margin-bottom: 30px;
-}
-
-button {
-  background: var(--secondary);
-  border: none;
-  color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: 600;
-  margin-bottom: 20px;
-}
-
-button:hover {
-  opacity: 0.9;
 }
 
 section {
@@ -70,4 +55,15 @@ tr:first-child td {
 
 p {
   margin: 6px 0;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  table {
+    font-size: 14px;
+  }
+
+  th, td {
+    padding: 6px;
+  }
 }
