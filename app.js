@@ -15,31 +15,32 @@ function updateView() {
 /* =========================
    SPIELPLAN GENERATOR
 ========================= */
-function generateSchedule() {
-  if (leagueData.matches.length > 0) {
-    alert("Spielplan existiert bereits!");
-    return;
-  }
+function buildMatchdays(data) {
+  const container = document.getElementById('matchdays');
+  container.innerHTML = '';
 
-  const teams = [...leagueData.teams];
-  shuffle(teams);
+  const days = {};
 
-  let matchday = 1;
+  data.matches.forEach(m => {
+    if (!days[m.matchday]) days[m.matchday] = [];
+    days[m.matchday].push(m);
+  });
 
-  for (let i = 0; i < teams.length; i += 2) {
-    if (teams[i + 1]) {
-      leagueData.matches.push({
-        matchday: matchday,
-        teamA: teams[i],
-        teamB: teams[i + 1],
-        scoreA: null,
-        scoreB: null
-      });
-    }
-    matchday++;
-  }
+  Object.keys(days).sort((a,b)=>a-b).forEach(day => {
+    const div = document.createElement('section');
+    div.innerHTML = `<h3>Spieltag ${day}</h3>`;
 
-  updateView();
+    days[day].forEach(m => {
+      div.innerHTML += `
+        <p>
+          <strong>${m.teamA}</strong>
+          ${m.scoreA ?? '-'} : ${m.scoreB ?? '-'}
+          <strong>${m.teamB}</strong>
+        </p>`;
+    });
+
+    container.appendChild(div);
+  });
 }
 
 /* =========================
