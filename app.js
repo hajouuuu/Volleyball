@@ -13,37 +13,6 @@ function updateView() {
 }
 
 /* =========================
-   SPIELPLAN GENERATOR
-========================= */
-function buildMatchdays(data) {
-  const container = document.getElementById('matchdays');
-  container.innerHTML = '';
-
-  const days = {};
-
-  data.matches.forEach(m => {
-    if (!days[m.matchday]) days[m.matchday] = [];
-    days[m.matchday].push(m);
-  });
-
-  Object.keys(days).sort((a,b)=>a-b).forEach(day => {
-    const div = document.createElement('section');
-    div.innerHTML = `<h3>Spieltag ${day}</h3>`;
-
-    days[day].forEach(m => {
-      div.innerHTML += `
-        <p>
-          <strong>${m.teamA}</strong>
-          ${m.scoreA ?? '-'} : ${m.scoreB ?? '-'}
-          <strong>${m.teamB}</strong>
-        </p>`;
-    });
-
-    container.appendChild(div);
-  });
-}
-
-/* =========================
    TABELLE
 ========================= */
 function buildTable(data) {
@@ -66,18 +35,13 @@ function buildTable(data) {
     stats[m.teamA].setsWon += m.scoreA;
     stats[m.teamB].setsWon += m.scoreB;
 
-    if (m.scoreA > m.scoreB) {
-      stats[m.teamA].points += 2;
-    } else {
-      stats[m.teamB].points += 2;
-    }
+    if (m.scoreA > m.scoreB) stats[m.teamA].points += 2;
+    else stats[m.teamB].points += 2;
   });
 
   const sorted = Object.entries(stats)
     .sort((a, b) => {
-      if (b[1].points !== a[1].points) {
-        return b[1].points - a[1].points;
-      }
+      if (b[1].points !== a[1].points) return b[1].points - a[1].points;
       return b[1].setsWon - a[1].setsWon;
     });
 
@@ -107,17 +71,7 @@ function buildMatchdays(data) {
     container.innerHTML += `
       <p>
         Spieltag ${m.matchday}:
-        ${m.teamA} ${m.scoreA ?? '-'} : ${m.scoreB ?? '-'} ${m.teamB}
+        <strong>${m.teamA}</strong> ${m.scoreA ?? '-'} : ${m.scoreB ?? '-'} <strong>${m.teamB}</strong>
       </p>`;
   });
-}
-
-/* =========================
-   HELPER
-========================= */
-function shuffle(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
 }
